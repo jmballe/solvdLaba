@@ -5,17 +5,16 @@ import java.util.Objects;
 public class Patient extends Person{
     private int id;
     private int roomid;
-    private String adress;
-
+    private String address;
     private String status;
     private String phoneNumber;
 
     public Patient(String Name, int age, String sex, int id,
-                   int roomid, String adress, String phoneNumber) {
+                   int roomid, String address, String phoneNumber) {
         super(Name, age, sex);
         this.id = id;
         this.roomid = roomid;
-        this.adress = adress;
+        this.address = address;
         this.phoneNumber = phoneNumber;
     }
 
@@ -35,12 +34,12 @@ public class Patient extends Person{
         this.roomid = roomid;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getStatus() {
@@ -63,12 +62,12 @@ public class Patient extends Person{
     public String toString() {
         return "Patient{" +
                 "name=" + getName() +
-                "Adress=" + getAdress() +
+                "Adress=" + getAddress() +
                 "Age=" + getAge() +
                 "Sex=" + getSex() +
                 "id=" + id +
                 ", roomid=" + roomid +
-                ", adress='" + adress + '\'' +
+                ", adress='" + address + '\'' +
                 ", status='" + status + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
@@ -80,12 +79,12 @@ public class Patient extends Person{
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
         return id == patient.id && roomid == patient.roomid &&
-                Objects.equals(adress, patient.adress) && Objects.equals(phoneNumber, patient.phoneNumber)
+                Objects.equals(address, patient.address) && Objects.equals(phoneNumber, patient.phoneNumber)
                 && getName().equals(patient.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomid, adress, phoneNumber,this.getName());
+        return Objects.hash(id, roomid, address, phoneNumber,this.getName());
     }
 }
