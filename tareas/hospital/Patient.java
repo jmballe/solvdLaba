@@ -9,6 +9,8 @@ public class Patient extends Person{
     private String status;
     private String phoneNumber;
 
+    private Prescription prescription;
+
     public Patient(String Name, int age, String sex, int id,
                    int roomid, String address, String phoneNumber) {
         super(Name, age, sex);
