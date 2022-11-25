@@ -4,25 +4,25 @@ import java.util.List;
 
 public class Reception {
     
-    private List<Recepcionist> receptionists;
+    private List<Receptionist> receptionists;
 
     public Reception() {
     }
 
-    public Reception(List<Recepcionist> recepcionists) {
-        this.receptionists = recepcionists;
+    public Reception(List<Receptionist> receptionists) {
+        this.receptionists = receptionists;
     }
 
-    public List<Recepcionist> getReceptionists() {
+    public List<Receptionist> getReceptionists() {
         return receptionists;
     }
 
-    public void setReceptionists(List<Recepcionist> receptionists) {
+    public void setReceptionists(List<Receptionist> receptionists) {
         this.receptionists = receptionists;
     }
     
-    public void addReceptionist(Recepcionist recepcionist){
-        receptionists.add(recepcionist);
+    public void addReceptionist(Receptionist receptionist){
+        receptionists.add(receptionist);
     }
     
     

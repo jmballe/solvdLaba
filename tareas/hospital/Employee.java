@@ -1,6 +1,6 @@
 package hospital;
 
-public class Employee extends Person{
+public abstract class Employee extends Person{
     private int id;
 
     public Employee(){}
@@ -9,6 +9,8 @@ public class Employee extends Person{
         super(name, age, sex);
         this.id = id;
     }
+
+
 
     public int getId() {
         return id;

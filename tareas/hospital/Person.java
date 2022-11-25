@@ -15,6 +15,8 @@ public abstract class Person {
         this.sex = sex;
     }
 
+    public abstract void introduce();
+
     public String getName() {
         return name;
     }

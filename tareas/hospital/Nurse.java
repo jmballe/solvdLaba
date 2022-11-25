@@ -5,4 +5,9 @@ public class Nurse extends Employee{
         super(name, age, sex, id);
     }
 
+    @Override
+    public void introduce() {
+        System.out.println("Hi! i'm a nurse.");
+    }
+
 }

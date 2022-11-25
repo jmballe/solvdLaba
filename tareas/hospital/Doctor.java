@@ -8,6 +8,11 @@ public class Doctor extends Employee{
 
     public Doctor() {}
 
+    @Override
+    public void introduce() {
+        System.out.println("Hi! i'm a doctor.");
+    }
+
     public Doctor(String name, int age, String sex, int id, Speciality specialization) {
         super(name, age, sex, id);
         this.specialization = specialization;
