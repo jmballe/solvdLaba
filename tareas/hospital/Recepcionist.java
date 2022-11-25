@@ -11,6 +11,6 @@ public class Recepcionist extends Employee{
     }
 
     public void patientStatus(Patient patient){
-
+        System.out.println(patient.toString());
     }
 }

@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Doctor extends Employee{
 
-    private String specialization;
+    private Speciality specialization;
 
     public Doctor() {}
 
-    public Doctor(String name, int age, String sex, int id, String specialization) {
+    public Doctor(String name, int age, String sex, int id, Speciality specialization) {
         super(name, age, sex, id);
         this.specialization = specialization;
     }
 
-    public String getSpecialization() {
+    public Speciality getSpecialization() {
         return specialization;
     }
 
-    public void setSpecialization(String specialization) {
+    public void setSpecialization(Speciality specialization) {
         this.specialization = specialization;
     }
 

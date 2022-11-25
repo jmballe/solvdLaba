@@ -11,13 +11,13 @@ public class Main {
         String doc1Name = "John Smith";
         int doc1Age = 33;
         String doc1Sex = "male";
-        String doc1Specialization = "Traumatologist";
+        Speciality doc1Specialization = Speciality.TRAUMATOLOGY;
         int doc1id= 1;
 
         String doc2Name = "Jack Sparrow";
         int doc2Age = 44;
         String doc2Sex = "male";
-        String doc2Specialization = "Surgeon";
+        Speciality doc2Specialization = Speciality.CARDIOLOGY;
         int doc2id= 2;
 
         Doctor doctor1 = new Doctor(doc1Name,doc1Age,doc1Sex,doc1id,doc1Specialization);
@@ -28,7 +28,7 @@ public class Main {
         doctor3.setAge(50);
         doctor3.setId(3);
         doctor3.setSex("female");
-        doctor3.setSpecialization("Cardiologist");
+        doctor3.setSpecialization(Speciality.DERMATOLOGY);
         List<Doctor> doctors = new ArrayList<>();
 
         doctors.add(doctor1);
