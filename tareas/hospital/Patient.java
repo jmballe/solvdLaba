@@ -20,6 +20,10 @@ public class Patient extends Person{
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
+    public void introduce() {
+        System.out.println("Hi! i'm a patient.");
+    }
     public int getId() {
         return id;
     }
