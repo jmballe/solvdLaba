@@ -1,5 +1,6 @@
 package hospital;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class Doctor extends Employee{
@@ -13,8 +14,8 @@ public class Doctor extends Employee{
         System.out.println("Hi! i'm a doctor.");
     }
 
-    public Doctor(String name, int age, String sex, int id, Speciality specialization) {
-        super(name, age, sex, id);
+    public Doctor(String name, int age, String gender, int id, LocalTime entryHour ,LocalTime leaveHour , double hourlyPayRate , Speciality specialization) {
+        super(name, age, gender, id, entryHour, leaveHour, hourlyPayRate);
         this.specialization = specialization;
     }
 

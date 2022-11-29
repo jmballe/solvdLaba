@@ -70,7 +70,7 @@ public class Patient extends Person{
                 "name=" + getName() +
                 "Adress=" + getAddress() +
                 "Age=" + getAge() +
-                "Sex=" + getSex() +
+                "Sex=" + getGender() +
                 "id=" + id +
                 ", roomid=" + roomid +
                 ", adress='" + address + '\'' +

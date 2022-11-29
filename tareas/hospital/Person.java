@@ -3,16 +3,16 @@ package hospital;
 public abstract class Person {
     private String name;
     private int age;
-    private String sex;
+    private String gender;
 
     public Person(){
 
     }
 
-    public Person(String name, int age, String sex) {
+    public Person(String name, int age, String gender) {
         this.name = name;
         this.age = age;
-        this.sex = sex;
+        this.gender = gender;
     }
 
     public abstract void introduce();
@@ -33,11 +33,11 @@ public abstract class Person {
         this.age = age;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
