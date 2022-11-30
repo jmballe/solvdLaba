@@ -1,9 +1,11 @@
 package hospital;
 
+import java.time.LocalTime;
+
 public class Receptionist extends Employee{
 
-    public Receptionist(String name, int age, String sex, int id) {
-        super(name, age, sex, id);
+    public Receptionist(String name, int age, String sex, int id, LocalTime entryHour , LocalTime leaveHour , double hourlyPayRate) {
+        super(name, age, sex, id,entryHour,leaveHour,hourlyPayRate);
     }
 
     @Override
