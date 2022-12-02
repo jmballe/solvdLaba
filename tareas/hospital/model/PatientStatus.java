@@ -1,4 +1,4 @@
-package hospital;
+package hospital.model;
 
 public enum PatientStatus {
     BAD_LOW_SEVERITY,

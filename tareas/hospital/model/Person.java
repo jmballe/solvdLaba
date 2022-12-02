@@ -1,4 +1,4 @@
-package hospital;
+package hospital.model;
 
 public abstract class Person {
     private String name;
