@@ -2,7 +2,7 @@ package hospital.model;
 
 import java.util.List;
 
-public class Reception {
+public class Reception  {
     
     private List<Receptionist> receptionists;
 
@@ -24,6 +24,4 @@ public class Reception {
     public void addReceptionist(Receptionist receptionist){
         receptionists.add(receptionist);
     }
-    
-    
 }

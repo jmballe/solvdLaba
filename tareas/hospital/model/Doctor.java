@@ -1,20 +1,30 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidAgeException;
+import hospital.exceptions.InvalidGenderException;
+import hospital.interfaces.Diagnosable;
+import hospital.interfaces.Introducible;
+
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Doctor extends Employee{
+public final class Doctor extends Employee implements Diagnosable, Introducible {
 
     private Speciality specialization;
+
+    private List<Treatment> treatments = new ArrayList<Treatment>();
 
     public Doctor() {}
 
     @Override
     public void introduce() {
-        System.out.println("Hi! i'm a doctor.");
+        System.out.println("Hi! I'm doctor " + getName() + ".");
     }
 
-    public Doctor(String name, int age, String gender, int id, LocalTime entryHour ,LocalTime leaveHour , double hourlyPayRate , Speciality specialization) {
+    public Doctor(String name, int age, String gender, String id, LocalTime entryHour ,LocalTime leaveHour , double hourlyPayRate , Speciality specialization)
+            throws InvalidAgeException, InvalidGenderException {
         super(name, age, gender, id, entryHour, leaveHour, hourlyPayRate);
         this.specialization = specialization;
     }
@@ -27,12 +37,20 @@ public class Doctor extends Employee{
         this.specialization = specialization;
     }
 
+    public void addTreatment(Treatment treatment){
+        treatments.add(treatment);
+    }
 
     private void givePrescription(Patient patient, Prescription prescription){
 
     }
 
     private void giveTest(Patient patient, Test test){
+
+    }
+
+    @Override
+    public void checkPatient() {
 
     }
 
@@ -55,4 +73,6 @@ public class Doctor extends Employee{
     public int hashCode() {
         return Objects.hash(specialization,getName());
     }
+
+
 }

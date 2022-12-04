@@ -1,9 +1,15 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidAgeException;
+import hospital.exceptions.InvalidGenderException;
+import hospital.interfaces.Diagnosable;
+import hospital.interfaces.Introducible;
+
 import java.time.LocalTime;
 
-public class Nurse extends Employee{
-    public Nurse(String name, int age, String sex, int id, LocalTime entryHour , LocalTime leaveHour , double hourlyPayRate) {
+public final class Nurse extends Employee implements Diagnosable, Introducible {
+    public Nurse(String name, int age, String sex, String id, LocalTime entryHour , LocalTime leaveHour , double hourlyPayRate)
+            throws InvalidAgeException, InvalidGenderException {
         super(name, age, sex, id,entryHour,leaveHour,hourlyPayRate);
     }
 
@@ -12,4 +18,8 @@ public class Nurse extends Employee{
         System.out.println("Hi! i'm a nurse.");
     }
 
+    @Override
+    public void checkPatient() {
+
+    }
 }

@@ -1,11 +1,15 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidAgeException;
+import hospital.exceptions.InvalidGenderException;
+import hospital.exceptions.InvalidIdException;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidIdException, InvalidAgeException, InvalidGenderException {
 
         //Doctors
         LocalTime entranceTime = LocalTime.of(8, 0);
@@ -14,7 +18,7 @@ public class Main {
         int doc1Age = 33;
         String doc1Sex = "male";
         Speciality doc1Specialization = Speciality.TRAUMATOLOGY;
-        int doc1id= 1;
+        String doc1id= "456789123";
         double doc1PayRate = 50.00;
 
 
@@ -22,7 +26,7 @@ public class Main {
         int doc2Age = 44;
         String doc2Sex = "male";
         Speciality doc2Specialization = Speciality.CARDIOLOGY;
-        int doc2id= 2;
+        String doc2id= "654789123";
         double doc2PayRate = 40.00;
 
         Doctor doctor1 = new Doctor(doc1Name,doc1Age,doc1Sex,doc1id, entranceTime,
@@ -33,7 +37,7 @@ public class Main {
 
         doctor3.setName("Laura Ibarra");
         doctor3.setAge(50);
-        doctor3.setId(3);
+        doctor3.setUniqueID("123456879");
         doctor3.setGender("female");
         doctor3.setSpecialization(Speciality.DERMATOLOGY);
         List<Doctor> doctors = new ArrayList<>();
@@ -43,7 +47,7 @@ public class Main {
 
         Hospital hospital = new Hospital();
 
-        hospital.ListDoctors(doctors);
+        hospital.setDoctors(doctors);
         hospital.addDoctor(doctor3);
 
         System.out.println(hospital.getDoctors());

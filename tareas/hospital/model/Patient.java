@@ -1,36 +1,34 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidAgeException;
+import hospital.exceptions.InvalidGenderException;
+import hospital.interfaces.Introducible;
+
 import java.util.Objects;
 
-public class Patient extends Person{
+public class Patient extends Person implements Introducible {
     private int id;
     private int roomid;
     private String address;
     private String status;
     private String phoneNumber;
-
     private Prescription prescription;
+    private double owedMoney;
 
-    public Patient(String Name, int age, String sex, int id,
-                   int roomid, String address, String phoneNumber) {
-        super(Name, age, sex);
-        this.id = id;
-        this.roomid = roomid;
+    public Patient(String Name, int age, String sex, String id,
+                   int roomId, String address, String phoneNumber) throws InvalidAgeException, InvalidGenderException {
+        super(Name, age, sex, id);
+        this.roomid = roomId;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.owedMoney = 0;
     }
 
     @Override
     public void introduce() {
-        System.out.println("Hi! i'm a patient.");
-    }
-    public int getId() {
-        return id;
+        System.out.println("Hi! i'm a patient. My name is " + getName() + ".");
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getRoomid() {
         return roomid;
@@ -62,6 +60,14 @@ public class Patient extends Person{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public double getOwedMoney() {
+        return owedMoney;
+    }
+
+    public void hospitalCharges(double chargedAmount){
+        owedMoney += chargedAmount;
     }
 
     @Override

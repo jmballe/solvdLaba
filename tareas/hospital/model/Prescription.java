@@ -8,11 +8,11 @@ public class Prescription {
     private String medicine;
     private String doctorName;
 
-    public Prescription(Date date, String pacientName, String medicine, String doctorName) {
+    public Prescription(Date date, Patient patient, String medicine, Doctor doctor) {
         this.date = date;
-        this.pacientName = pacientName;
+        this.pacientName = patient.getName();
         this.medicine = medicine;
-        this.doctorName = doctorName;
+        this.doctorName = doctor.getName();
     }
 
     public Date getDate() {

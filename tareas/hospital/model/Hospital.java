@@ -1,5 +1,8 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidIdException;
+
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.List;
 
@@ -10,14 +13,23 @@ public class Hospital {
     private List<Deparment> deparments;
     private List<Patient> patients;
 
-    public Hospital(){}
+    private List<String> ids;
 
-    public Hospital(String adress, List<Room> rooms, List<Doctor> doctors, List<Deparment> deparments, List<Patient> patients) {
+    public Hospital(){
+        rooms = new ArrayList<Room>();
+        patients = new ArrayList<Patient>();
+        doctors = new ArrayList<Doctor>();
+        ids = new ArrayList<String>();
+        deparments = new ArrayList<Deparment>();
+    }
+
+    public Hospital(String adress, List<Room> rooms, List<Doctor> doctors, List<Deparment> deparments, List<Patient> patients, List<String> ids) {
         this.adress = adress;
         this.rooms = rooms;
         this.doctors = doctors;
         this.deparments = deparments;
         this.patients = patients;
+        this.ids = ids;
     }
 
     public String getAdress() {
@@ -32,7 +44,7 @@ public class Hospital {
         return rooms;
     }
 
-    public void ListRooms(List<Room> rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 
@@ -40,24 +52,41 @@ public class Hospital {
         return doctors;
     }
 
-    public void ListDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
+    public void setDoctors(List<Doctor> doctors) throws InvalidIdException {
+        for (Doctor doctor: doctors) {
+            addDoctor(doctor);
+        }
     }
 
     public List<Deparment> getDeparments() {
         return deparments;
     }
 
-    public void ListDeparments(List<Deparment> deparments) {
+    public void setDeparments(List<Deparment> deparments) {
         this.deparments = deparments;
     }
 
-    public void addDoctor(Doctor doctor){
+    public void addDoctor(Doctor doctor) throws InvalidIdException {
+        if(checkIdAlreadyAdded(ids,doctor.getUniqueID()))
+            throw new InvalidIdException("ID already in use.");
+        ids.add(doctor.getUniqueID());
         doctors.add(doctor);
+
     }
 
-    public void addPatient(Patient patient){
+    public void addPatient(Patient patient) throws InvalidIdException{
+        if(checkIdAlreadyAdded(ids,patient.getUniqueID()))
+            throw new InvalidIdException("ID already in use.");
+        ids.add(patient.getUniqueID());
         patients.add(patient);
+    }
+
+    private boolean checkIdAlreadyAdded(List<String> ids, String personId){
+        if(ids.isEmpty()){
+            return false;
+        } else {
+            return ids.contains(personId);
+        }
     }
 
     @Override
@@ -65,7 +94,9 @@ public class Hospital {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Hospital hospital = (Hospital) o;
-        return Objects.equals(adress, hospital.adress) && Objects.equals(rooms, hospital.rooms) && Objects.equals(doctors, hospital.doctors) && Objects.equals(deparments, hospital.deparments) && Objects.equals(patients, hospital.patients);
+        return Objects.equals(adress, hospital.adress) && Objects.equals(rooms, hospital.rooms) &&
+                Objects.equals(doctors, hospital.doctors) && Objects.equals(deparments, hospital.deparments) &&
+                Objects.equals(patients, hospital.patients);
     }
 
     @Override

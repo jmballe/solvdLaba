@@ -1,10 +1,12 @@
 package hospital.model;
 
+import hospital.exceptions.InvalidAgeException;
+import hospital.exceptions.InvalidGenderException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public abstract class Employee extends Person{
-    private int id;
     private int hoursWorked;
     private LocalTime entryHour;
     private LocalTime leaveHour;
@@ -15,10 +17,9 @@ public abstract class Employee extends Person{
 
     public Employee(){}
 
-    public Employee(String name, int age, String sex, int id,LocalTime entryHour, LocalTime leaveHour, double hourlyPayRate) {
-        super(name, age, sex);
-        this.id = id;
-
+    public Employee(String name, int age, String gender, String id,LocalTime entryHour, LocalTime leaveHour, double hourlyPayRate)
+            throws InvalidAgeException, InvalidGenderException {
+        super(name, age, gender, id);
         this.entryHour = entryHour;
         this.leaveHour = leaveHour;
         this.hourlyPayRate = hourlyPayRate;
@@ -63,14 +64,6 @@ public abstract class Employee extends Person{
 
     public void setHourlyPayRate(double hourlyPayRate) {
         this.hourlyPayRate = hourlyPayRate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getHolidayStart() {
