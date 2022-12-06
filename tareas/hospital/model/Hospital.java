@@ -10,7 +10,7 @@ public class Hospital {
     private String adress;
     private List<Room> rooms;
     private List<Doctor> doctors;
-    private List<Deparment> deparments;
+    private List<Department> departments;
     private List<Patient> patients;
 
     private List<String> ids;
@@ -20,14 +20,14 @@ public class Hospital {
         patients = new ArrayList<Patient>();
         doctors = new ArrayList<Doctor>();
         ids = new ArrayList<String>();
-        deparments = new ArrayList<Deparment>();
+        departments = new ArrayList<Department>();
     }
 
-    public Hospital(String adress, List<Room> rooms, List<Doctor> doctors, List<Deparment> deparments, List<Patient> patients, List<String> ids) {
+    public Hospital(String adress, List<Room> rooms, List<Doctor> doctors, List<Department> departments, List<Patient> patients, List<String> ids) {
         this.adress = adress;
         this.rooms = rooms;
         this.doctors = doctors;
-        this.deparments = deparments;
+        this.departments = departments;
         this.patients = patients;
         this.ids = ids;
     }
@@ -58,12 +58,12 @@ public class Hospital {
         }
     }
 
-    public List<Deparment> getDeparments() {
-        return deparments;
+    public List<Department> getDeparments() {
+        return departments;
     }
 
-    public void setDeparments(List<Deparment> deparments) {
-        this.deparments = deparments;
+    public void setDeparments(List<Department> departments) {
+        this.departments = departments;
     }
 
     public void addDoctor(Doctor doctor) throws InvalidIdException {
@@ -95,12 +95,12 @@ public class Hospital {
         if (o == null || getClass() != o.getClass()) return false;
         Hospital hospital = (Hospital) o;
         return Objects.equals(adress, hospital.adress) && Objects.equals(rooms, hospital.rooms) &&
-                Objects.equals(doctors, hospital.doctors) && Objects.equals(deparments, hospital.deparments) &&
+                Objects.equals(doctors, hospital.doctors) && Objects.equals(departments, hospital.departments) &&
                 Objects.equals(patients, hospital.patients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(adress, rooms, doctors, deparments, patients);
+        return Objects.hash(adress, rooms, doctors, departments, patients);
     }
 }
