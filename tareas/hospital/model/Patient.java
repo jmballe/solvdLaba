@@ -2,11 +2,14 @@ package hospital.model;
 
 import hospital.exceptions.InvalidAgeException;
 import hospital.exceptions.InvalidGenderException;
+import hospital.interfaces.Chargeable;
 import hospital.interfaces.Introducible;
+import hospital.interfaces.Schedulable;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.*;
 
-public class Patient extends Person implements Introducible {
+public class Patient extends Person implements Introducible, Schedulable, Chargeable {
     private int id;
     private int roomid;
     private String address;
@@ -14,6 +17,9 @@ public class Patient extends Person implements Introducible {
     private String phoneNumber;
     private Prescription prescription;
     private double owedMoney;
+    private Map<LocalDateTime,Doctor> appointments = new HashMap<LocalDateTime,Doctor>();
+
+    private List<Treatment> treatments = new ArrayList<Treatment>();
 
     public Patient(String Name, int age, String sex, String id,
                    int roomId, String address, String phoneNumber) throws InvalidAgeException, InvalidGenderException {
@@ -70,6 +76,34 @@ public class Patient extends Person implements Introducible {
         owedMoney += chargedAmount;
     }
 
+    public Map<LocalDateTime, Doctor> getAppointments() {
+        return appointments;
+    }
+
+    public List<Treatment> getTreatments() {
+        return treatments;
+    }
+
+    public void addTreatment(Treatment treatment){
+        treatments.add(treatment);
+        hospitalCharges(treatment.getCost());
+    }
+
+    public void payCharges(){
+        treatments.forEach(treatment -> treatment.setPayed(true));
+        owedMoney = 0;
+    }
+
+    @Override
+    public void scheduleAppointment(LocalDateTime appointmentTime, Doctor doctor) {
+        appointments.put(appointmentTime,doctor);
+    }
+
+    @Override
+    public void getCharges() {
+        System.out.println("You own" + owedMoney);
+    }
+
     @Override
     public String toString() {
         return "Patient{" +
@@ -99,4 +133,7 @@ public class Patient extends Person implements Introducible {
     public int hashCode() {
         return Objects.hash(id, roomid, address, phoneNumber,this.getName());
     }
+
+
+
 }

@@ -50,7 +50,7 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
     }
 
     @Override
-    public void checkPatient() {
+    public void checkPatient(Patient patient) {
 
     }
 

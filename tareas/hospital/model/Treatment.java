@@ -11,15 +11,15 @@ public class Treatment {
     private Doctor doctor;
     private boolean payed;
 
-    private LocalDateTime localDateTime;
+    private LocalDateTime treatmentTime;
 
-    public Treatment(String name, double cost, Patient patient, Doctor doctor, boolean payed, LocalDateTime localDateTime) {
+    public Treatment(String name, double cost, Patient patient, Doctor doctor, boolean payed, LocalDateTime treatmentTime) {
         this.name = name;
         this.cost = cost;
         this.patient = patient;
         this.doctor = doctor;
         this.payed = payed;
-        this.localDateTime = localDateTime;
+        this.treatmentTime = treatmentTime;
     }
 
     public String getName() {
@@ -62,11 +62,11 @@ public class Treatment {
         this.payed = payed;
     }
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDateTime getTreatmentTime() {
+        return treatmentTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setTreatmentTime(LocalDateTime treatmentTime) {
+        this.treatmentTime = treatmentTime;
     }
 }
