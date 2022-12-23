@@ -1,25 +1,25 @@
 package com.solvd.tareas.hospital.model;
 
 public class Room {
-    private int id;
+    private String position;
     private double width;
     private double length;
 
     public Room() {
     }
 
-    public Room(int id, double width, double length) {
-        this.id = id;
+    public Room(String position, double width, double length) {
+        this.position = position;
         this.width = width;
         this.length = length;
     }
 
-    public int getId() {
-        return id;
+    public String getPosition() {
+        return position;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public double getWidth() {

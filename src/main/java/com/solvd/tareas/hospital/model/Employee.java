@@ -2,6 +2,9 @@ package com.solvd.tareas.hospital.model;
 
 import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
 import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
+import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,10 +21,13 @@ public abstract class Employee extends Person {
     public Employee(){}
 
     public Employee(String name, int age, String gender, String id,LocalTime entryHour, LocalTime leaveHour, double hourlyPayRate)
-            throws InvalidAgeException, InvalidGenderException {
+            throws InvalidAgeException, InvalidGenderException, InvalidPayRateException {
         super(name, age, gender, id);
         this.entryHour = entryHour;
         this.leaveHour = leaveHour;
+        if(hourlyPayRate <= 0){
+            throw new InvalidPayRateException("Hourly pay rate must be grater than 0.");
+        }
         this.hourlyPayRate = hourlyPayRate;
         this.daysWorked = 0;
     }

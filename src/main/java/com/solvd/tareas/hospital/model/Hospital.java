@@ -23,8 +23,8 @@ public class Hospital {
         departments = new ArrayList<Department>();
     }
 
-    public Hospital(String adress, List<Room> rooms, List<Doctor> doctors, List<Department> departments, List<Patient> patients, List<String> ids) {
-        this.adress = adress;
+    public Hospital(String address, List<Room> rooms, List<Doctor> doctors, List<Department> departments, List<Patient> patients, List<String> ids) {
+        this.adress = address;
         this.rooms = rooms;
         this.doctors = doctors;
         this.departments = departments;

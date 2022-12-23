@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 public class Treatment {
     private String name;
     private double cost;
-
     private Patient patient;
-
     private Doctor doctor;
     private boolean payed;
 

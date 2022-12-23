@@ -2,8 +2,11 @@ package com.solvd.tareas.hospital.model;
 
 import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
 import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
+import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
 import com.solvd.tareas.hospital.interfaces.Diagnosable;
 import com.solvd.tareas.hospital.interfaces.Introducible;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 public final class Doctor extends Employee implements Diagnosable, Introducible {
-
+    private static final Logger log = LogManager.getLogger(Doctor.class);
     private Speciality specialization;
 
     private List<Treatment> treatments = new ArrayList<Treatment>();
@@ -20,11 +23,11 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
 
     @Override
     public void introduce() {
-        System.out.println("Hi! I'm doctor " + getName() + ".");
+        log.info("Hi! I'm doctor " + getName() + ".");
     }
 
     public Doctor(String name, int age, String gender, String id, LocalTime entryHour ,LocalTime leaveHour , double hourlyPayRate , Speciality specialization)
-            throws InvalidAgeException, InvalidGenderException {
+            throws InvalidAgeException, InvalidGenderException, InvalidPayRateException {
         super(name, age, gender, id, entryHour, leaveHour, hourlyPayRate);
         this.specialization = specialization;
     }
@@ -71,7 +74,13 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
 
     @Override
     public int hashCode() {
-        return Objects.hash(specialization,getName());
+        int id = -999999;
+        try {
+            id = Integer.parseInt(this.getUniqueID());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
 

@@ -124,14 +124,19 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return id == patient.id && roomid == patient.roomid &&
-                Objects.equals(address, patient.address) && Objects.equals(phoneNumber, patient.phoneNumber)
-                && getName().equals(patient.getName());
+        return id == patient.id &&
+                getName().equals(patient.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomid, address, phoneNumber,this.getName());
+        int id = -999999;
+        try {
+            id = Integer.parseInt(this.getUniqueID());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
 

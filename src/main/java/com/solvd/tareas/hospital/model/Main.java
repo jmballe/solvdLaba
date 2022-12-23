@@ -3,13 +3,14 @@ package com.solvd.tareas.hospital.model;
 import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
 import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
 import com.solvd.tareas.hospital.exceptions.InvalidIdException;
+import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws InvalidIdException, InvalidAgeException, InvalidGenderException {
+    public static void main(String[] args) throws InvalidIdException, InvalidAgeException, InvalidGenderException, InvalidPayRateException {
 
         //Doctors
         LocalTime entranceTime = LocalTime.of(8, 0);
