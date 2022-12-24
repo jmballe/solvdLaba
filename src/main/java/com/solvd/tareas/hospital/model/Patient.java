@@ -5,12 +5,14 @@ import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
 import com.solvd.tareas.hospital.interfaces.Chargeable;
 import com.solvd.tareas.hospital.interfaces.Introducible;
 import com.solvd.tareas.hospital.interfaces.Schedulable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class Patient extends Person implements Introducible, Schedulable, Chargeable {
-    private int id;
+    private static final Logger log = LogManager.getLogger(Patient.class);
     private int roomid;
     private String address;
     private String status;
@@ -32,7 +34,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
 
     @Override
     public void introduce() {
-        System.out.println("Hi! i'm a patient. My name is " + getName() + ".");
+        log.info("Hi! i'm a patient. My name is " + getName() + ".");
     }
 
 
@@ -101,7 +103,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
 
     @Override
     public void getCharges() {
-        System.out.println("You own" + owedMoney);
+        log.info("You own" + owedMoney);
     }
 
     @Override
@@ -111,7 +113,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
                 "Adress=" + getAddress() +
                 "Age=" + getAge() +
                 "Sex=" + getGender() +
-                "id=" + id +
+                "id=" + getUniqueID() +
                 ", roomid=" + roomid +
                 ", adress='" + address + '\'' +
                 ", status='" + status + '\'' +
@@ -124,7 +126,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return id == patient.id &&
+        return getUniqueID() == patient.getUniqueID() &&
                 getName().equals(patient.getName());
     }
 
