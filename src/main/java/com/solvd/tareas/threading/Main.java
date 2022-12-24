@@ -16,13 +16,13 @@ public class Main {
         //Testing connection pool.
         ConnectionPool conPool = ConnectionPool.newInstance();
         System.out.println("\n----Testing pool connection threads---- \n");
-        poolThread pt1 = new poolThread();
-        poolThread pt2 = new poolThread();
-        poolThread pt3 = new poolThread();
-        poolThread pt4 = new poolThread();
-        poolThread pt5 = new poolThread();
-        poolThread pt6 = new poolThread();
-        poolThread pt7 = new poolThread();
+        PoolThread pt1 = new PoolThread();
+        PoolThread pt2 = new PoolThread();
+        PoolThread pt3 = new PoolThread();
+        PoolThread pt4 = new PoolThread();
+        PoolThread pt5 = new PoolThread();
+        PoolThread pt6 = new PoolThread();
+        PoolThread pt7 = new PoolThread();
 
         pt1.start();
         pt2.start();

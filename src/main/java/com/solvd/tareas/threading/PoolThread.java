@@ -1,6 +1,6 @@
 package com.solvd.tareas.threading;
 
-public class poolThread extends Thread{
+public class PoolThread extends Thread{
     public void run(){
         System.out.println("Hello from a pool thread!");
         CustomConnection con = ConnectionPool.newInstance().getConnection();
