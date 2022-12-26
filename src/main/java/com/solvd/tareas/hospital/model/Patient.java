@@ -13,61 +13,37 @@ import java.util.*;
 
 public class Patient extends Person implements Introducible, Schedulable, Chargeable {
     private static final Logger log = LogManager.getLogger(Patient.class);
-    private int roomid;
-    private String address;
-    private String status;
-    private String phoneNumber;
-    private Prescription prescription;
+    private PatientStatus status;
+    private Speciality beingTreatedIn;
+    private List<Prescription> prescriptions;
     private double owedMoney;
-    private Map<LocalDateTime, Doctor> appointments = new HashMap<LocalDateTime, Doctor>();
+    private Map<LocalDateTime, Doctor> appointments;
+    private List<Treatment> treatments;
 
-    private List<Treatment> treatments = new ArrayList<Treatment>();
-
-    public Patient(String Name, int age, String sex, String id,
-                   int roomId, String address, String phoneNumber) throws InvalidAgeException, InvalidGenderException {
-        super(Name, age, sex, id);
-        this.roomid = roomId;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    public Patient(String Name, int age, String gender, String id,
+                   PatientStatus status , Speciality beingTreatedIn) throws InvalidAgeException, InvalidGenderException {
+        super(Name, age, gender, id);
+        this.status = status;
+        this.beingTreatedIn = beingTreatedIn;
         this.owedMoney = 0;
+        appointments  = new HashMap<LocalDateTime, Doctor>();
+        treatments = new ArrayList<>();
     }
 
-    @Override
-    public void introduce() {
-        log.info("Hi! i'm a patient. My name is " + getName() + ".");
-    }
-
-
-    public int getRoomid() {
-        return roomid;
-    }
-
-    public void setRoomid(int roomid) {
-        this.roomid = roomid;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getStatus() {
+    public PatientStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PatientStatus status) {
         this.status = status;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Speciality getBeingTreatedIn() {
+        return beingTreatedIn;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setBeingTreatedIn(Speciality beingTreatedIn) {
+        this.beingTreatedIn = beingTreatedIn;
     }
 
     public double getOwedMoney() {
@@ -75,7 +51,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
     }
 
     public void hospitalCharges(double chargedAmount){
-        owedMoney += chargedAmount;
+        this.owedMoney += chargedAmount;
     }
 
     public Map<LocalDateTime, Doctor> getAppointments() {
@@ -91,8 +67,21 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
         hospitalCharges(treatment.getCost());
     }
 
+    public List<Prescription> getPrescriptions(){
+        return prescriptions;
+    }
+
+    public void addPrescription(Prescription prescription){
+        prescriptions.add(prescription);
+    }
+
+    @Override
+    public void introduce() {
+        log.info("Hi! i'm a patient. My name is " + getName() + ".");
+    }
     public void payCharges(){
         treatments.forEach(treatment -> treatment.setPayed(true));
+        log.info("Thank you. You have payed" + owedMoney);
         owedMoney = 0;
     }
 
@@ -103,21 +92,18 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
 
     @Override
     public void getCharges() {
-        log.info("You own" + owedMoney);
+        log.info("You own " + owedMoney);
     }
 
     @Override
     public String toString() {
         return "Patient{" +
                 "name=" + getName() +
-                "Adress=" + getAddress() +
                 "Age=" + getAge() +
                 "Sex=" + getGender() +
                 "id=" + getUniqueID() +
-                ", roomid=" + roomid +
-                ", adress='" + address + '\'' +
                 ", status='" + status + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", beingTreatedIn='" + beingTreatedIn + '\'' +
                 '}';
     }
 
@@ -126,7 +112,7 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return getUniqueID() == patient.getUniqueID() &&
+        return Objects.equals(getUniqueID(), patient.getUniqueID()) &&
                 getName().equals(patient.getName());
     }
 

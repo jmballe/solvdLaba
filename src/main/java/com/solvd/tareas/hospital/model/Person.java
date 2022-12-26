@@ -5,7 +5,7 @@ import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
 
 public abstract class Person {
     private String name;
-    private int age;
+    private Integer age;
     private String gender;
     private String uniqueID;
 
@@ -39,11 +39,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -61,5 +61,15 @@ public abstract class Person {
 
     public String getUniqueID(){
         return uniqueID;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", uniqueID='" + uniqueID + '\'' +
+                '}';
     }
 }

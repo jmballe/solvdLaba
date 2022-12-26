@@ -2,53 +2,49 @@ package com.solvd.tareas.hospital.model;
 
 import com.solvd.tareas.hospital.exceptions.InvalidIdException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Hospital {
-    private String adress;
-    private List<Room> rooms;
-    private List<Doctor> doctors;
-    private List<Department> departments;
-    private List<Patient> patients;
+    private String address;
 
-    private List<String> ids;
+    private String phoneNumber;
+    private Set<Doctor> doctors;
+    private List<Department> departments;
+    private Set<Patient> patients;
+    private Set<String> ids;
 
     public Hospital(){
-        rooms = new ArrayList<Room>();
-        patients = new ArrayList<Patient>();
-        doctors = new ArrayList<Doctor>();
-        ids = new ArrayList<String>();
+        patients = new HashSet<>();
+        doctors = new HashSet<>();
+        ids = new HashSet<>();
         departments = new ArrayList<Department>();
     }
 
-    public Hospital(String address, List<Room> rooms, List<Doctor> doctors, List<Department> departments, List<Patient> patients, List<String> ids) {
-        this.adress = address;
-        this.rooms = rooms;
+    public Hospital(String address, String phoneNumber, Set<Doctor> doctors, List<Department> departments, Set<Patient> patients, Set<String> ids) {
+        this.address = address;
         this.doctors = doctors;
         this.departments = departments;
         this.patients = patients;
         this.ids = ids;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void ListAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public List<Doctor> getDoctors() {
+    public Set<Doctor> getDoctors() {
         return doctors;
     }
 
@@ -62,8 +58,8 @@ public class Hospital {
         return departments;
     }
 
-    public void setDeparments(List<Department> departments) {
-        this.departments = departments;
+    public void addDepartments(Department dept){
+        departments.add(dept);
     }
 
     public void addDoctor(Doctor doctor) throws InvalidIdException {
@@ -81,26 +77,11 @@ public class Hospital {
         patients.add(patient);
     }
 
-    private boolean checkIdAlreadyAdded(List<String> ids, String personId){
+    public boolean checkIdAlreadyAdded(Set<String> ids, String personId){
         if(ids.isEmpty()){
             return false;
         } else {
             return ids.contains(personId);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hospital hospital = (Hospital) o;
-        return Objects.equals(adress, hospital.adress) && Objects.equals(rooms, hospital.rooms) &&
-                Objects.equals(doctors, hospital.doctors) && Objects.equals(departments, hospital.departments) &&
-                Objects.equals(patients, hospital.patients);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(adress, rooms, doctors, departments, patients);
     }
 }

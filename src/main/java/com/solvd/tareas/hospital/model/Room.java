@@ -1,40 +1,40 @@
 package com.solvd.tareas.hospital.model;
 
 public class Room {
-    private String position;
-    private double width;
-    private double length;
+    private String area;
+    private String floor;
+    private int capacity;
 
     public Room() {
     }
 
-    public Room(String position, double width, double length) {
-        this.position = position;
-        this.width = width;
-        this.length = length;
+    public Room(String area,String floor, int capacity) {
+        this.area = area;
+        this.floor = floor;
+        this.capacity = capacity;
     }
 
-    public String getPosition() {
-        return position;
+    public String getArea() {
+        return area;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public double getWidth() {
-        return width;
+    public String getFloor() {
+        return floor;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 
-    public double getLength() {
-        return length;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setLength(double length) {
-        this.length = length;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

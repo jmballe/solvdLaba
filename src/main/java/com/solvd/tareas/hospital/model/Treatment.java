@@ -11,12 +11,12 @@ public class Treatment {
 
     private LocalDateTime treatmentTime;
 
-    public Treatment(String name, double cost, Patient patient, Doctor doctor, boolean payed, LocalDateTime treatmentTime) {
+    public Treatment(String name, double cost, Patient patient, Doctor doctor, LocalDateTime treatmentTime) {
         this.name = name;
         this.cost = cost;
         this.patient = patient;
         this.doctor = doctor;
-        this.payed = payed;
+        this.payed = false;
         this.treatmentTime = treatmentTime;
     }
 

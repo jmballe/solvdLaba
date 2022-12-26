@@ -8,6 +8,8 @@ import com.solvd.tareas.hospital.interfaces.Introducible;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
     private static final Logger log = LogManager.getLogger(Doctor.class);
     private Speciality specialization;
 
-    private List<Treatment> treatments = new ArrayList<Treatment>();
+    private List<Treatment> treatmentsDone;
 
     public Doctor() {}
 
@@ -30,6 +32,7 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
             throws InvalidAgeException, InvalidGenderException, InvalidPayRateException {
         super(name, age, gender, id, entryHour, leaveHour, hourlyPayRate);
         this.specialization = specialization;
+        this.treatmentsDone = new ArrayList<Treatment>();
     }
 
     public Speciality getSpecialization() {
@@ -40,21 +43,19 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
         this.specialization = specialization;
     }
 
-    public void addTreatment(Treatment treatment){
-        treatments.add(treatment);
+    public void treatPatient(Patient patient,Treatment treatment){
+        patient.addTreatment(treatment);
+        treatmentsDone.add(treatment);
     }
 
-    private void givePrescription(Patient patient, Prescription prescription){
-
-    }
-
-    private void giveTest(Patient patient, Test test){
-
+    private void givePrescription(Patient patient, String medicine){
+        Prescription prescription = new Prescription(LocalDate.now(),patient,medicine,this);
+        patient.addPrescription(prescription);
     }
 
     @Override
     public void checkPatient(Patient patient) {
-
+        log.info("Doctor " + this.getName() + " is testing " + patient.getName() + "blood pressure and oxigen levels.");
     }
 
     @Override

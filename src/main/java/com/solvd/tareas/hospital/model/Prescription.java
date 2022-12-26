@@ -1,25 +1,26 @@
 package com.solvd.tareas.hospital.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Prescription {
-    private Date date;
+    private LocalDate date;
     private String pacientName;
     private String medicine;
     private String doctorName;
 
-    public Prescription(Date date, Patient patient, String medicine, Doctor doctor) {
+    public Prescription(LocalDate date, Patient patient, String medicine, Doctor doctor) {
         this.date = date;
         this.pacientName = patient.getName();
         this.medicine = medicine;
         this.doctorName = doctor.getName();
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

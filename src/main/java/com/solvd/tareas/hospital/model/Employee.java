@@ -91,4 +91,17 @@ public abstract class Employee extends Person {
     public Boolean checkIfDateInHolidays(LocalDate dateToCheck){
         return ( ! dateToCheck.isBefore( holidayStart ) ) && ( dateToCheck.isBefore( holidayEnd ) ) ;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "hoursWorked=" + hoursWorked +
+                ", entryHour=" + entryHour +
+                ", leaveHour=" + leaveHour +
+                ", daysWorked=" + daysWorked +
+                ", hourlyPayRate=" + hourlyPayRate +
+                ", holidayStart=" + holidayStart +
+                ", holidayEnd=" + holidayEnd +
+                "} " + super.toString();
+    }
 }

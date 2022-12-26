@@ -1,28 +1,34 @@
 package com.solvd.tareas.hospital.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
+import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
+import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
+
+import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Department {
-    private Room room;
+    private String location;
     private Speciality speciality;
-    private List<Doctor> deptDoctors;
+    private Set<Doctor> deptDoctors;
+    private Set<Patient> deptPatients;
+    private Set<Nurse> deptNurses;
 
     public Department(){
-        deptDoctors = new ArrayList<Doctor>();
+        deptDoctors = new HashSet<Doctor>();
     }
-    public Department(Room room, Speciality speciality, List<Doctor> deptDoctors) {
-        this.room = room;
+    public Department(String location, Speciality speciality) {
+        this.location = location;
         this.speciality = speciality;
-        this.deptDoctors = deptDoctors;
     }
 
-    public Room getRoom() {
-        return room;
+    public String getLocation() {
+        return location;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Speciality getSpeciality() {
@@ -33,11 +39,34 @@ public class Department {
         this.speciality = speciality;
     }
 
-    public List<Doctor> getDeptDoctors() {
+    public Set<Doctor> getDeptDoctors() {
         return deptDoctors;
     }
 
-    public void setDeptDoctors(List<Doctor> deptDoctors) {
-        this.deptDoctors = deptDoctors;
+    public Set<Patient> getDeptPatients() {
+        return deptPatients;
+    }
+    public Set<Nurse> getDeptNurses() {
+        return deptNurses;
+    }
+
+    public void addPatientDept(Patient patient){
+        deptPatients.add(patient);
+
+    }
+
+    public void addEmployee( String name, int age, String gender, String profession, String ID,
+                                 double payRate,LocalTime entryTime,
+                                 LocalTime leavingTime,Speciality speciality) throws InvalidAgeException, InvalidPayRateException, InvalidGenderException {
+        switch (profession) {
+            case "Doctor" -> {
+                Doctor doctor = new Doctor(name,age,gender,ID,entryTime,leavingTime,payRate,speciality);
+//                Doctor.initializeSchedule();
+                deptDoctors.add(doctor);
+            }
+            case "nurse" -> deptNurses.add(new Nurse(name, age, gender,ID, entryTime,leavingTime,payRate));
+            default -> {
+            }
+        }
     }
 }

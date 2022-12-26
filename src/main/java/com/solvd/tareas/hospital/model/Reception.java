@@ -1,23 +1,24 @@
 package com.solvd.tareas.hospital.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class Reception  {
     
-    private List<Receptionist> receptionists;
+    private Set<Receptionist> receptionists;
 
     public Reception() {
     }
 
-    public Reception(List<Receptionist> receptionists) {
+    public Reception(Set<Receptionist> receptionists) {
         this.receptionists = receptionists;
     }
 
-    public List<Receptionist> getReceptionists() {
+    public Set<Receptionist> getReceptionists() {
         return receptionists;
     }
 
-    public void setReceptionists(List<Receptionist> receptionists) {
+    public void setReceptionists(Set<Receptionist> receptionists) {
         this.receptionists = receptionists;
     }
     
