@@ -18,7 +18,6 @@ import java.util.Objects;
 public final class Doctor extends Employee implements Diagnosable, Introducible {
     private static final Logger log = LogManager.getLogger(Doctor.class);
     private Speciality specialization;
-
     private List<Treatment> treatmentsDone;
 
     public Doctor() {}
@@ -43,9 +42,14 @@ public final class Doctor extends Employee implements Diagnosable, Introducible 
         this.specialization = specialization;
     }
 
-    public void treatPatient(Patient patient,Treatment treatment){
+    public List<Treatment> getTreatmentsDone() {
+        return treatmentsDone;
+    }
+    public void treatPatient(Patient patient,String treatmentName,double cost, LocalDateTime time){
+        Treatment treatment = new Treatment(treatmentName,cost,patient,this,time);
         patient.addTreatment(treatment);
         treatmentsDone.add(treatment);
+        log.info("Doctor " + this.getName() + " made a " + treatmentName + " to patient " + patient.getName());
     }
 
     private void givePrescription(Patient patient, String medicine){

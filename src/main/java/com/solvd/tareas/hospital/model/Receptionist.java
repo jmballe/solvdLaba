@@ -23,10 +23,6 @@ public class Receptionist extends Employee implements Introducible {
         log.info("Hi! My name is " + getName() + ". I'm a receptionist.");
     }
 
-    public void registerPatient(Hospital hospital, Patient patient) throws InvalidIdException {
-        hospital.addPatient(patient);
-    }
-
     public void patientStatus(Patient patient){
         log.info(patient.getStatus());
     }

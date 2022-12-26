@@ -1,4 +1,7 @@
-package com.solvd.tareas.hospital.model;
+package com.solvd.tareas.hospital.exampleValues;
+
+import com.solvd.tareas.hospital.model.PatientStatus;
+import com.solvd.tareas.hospital.model.Speciality;
 
 public enum ExamplePatients {
 

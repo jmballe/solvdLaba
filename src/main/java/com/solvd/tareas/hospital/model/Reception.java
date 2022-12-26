@@ -1,5 +1,6 @@
 package com.solvd.tareas.hospital.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ public class Reception  {
     private Set<Receptionist> receptionists;
 
     public Reception() {
+        receptionists = new HashSet<>();
     }
 
     public Reception(Set<Receptionist> receptionists) {

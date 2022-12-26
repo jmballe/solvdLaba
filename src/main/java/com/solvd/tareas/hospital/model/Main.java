@@ -1,41 +1,84 @@
 package com.solvd.tareas.hospital.model;
 
+import com.solvd.tareas.hospital.exampleValues.ExampleDepartments;
+import com.solvd.tareas.hospital.exampleValues.ExampleEmployees;
+import com.solvd.tareas.hospital.exampleValues.ExamplePatients;
+import com.solvd.tareas.hospital.exampleValues.ExampleTreatments;
 import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
 import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
 import com.solvd.tareas.hospital.exceptions.InvalidIdException;
 import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
+
+    private static final Logger log = LogManager.getLogger(Main.class);
     public static void main(String[] args) throws InvalidIdException, InvalidAgeException, InvalidGenderException, InvalidPayRateException {
 
+
+        //Testing creating a new hospital
         Hospital hospital = new Hospital();
         hospital.setAddress("123 Fake Street Faketown, FA 12345");
-        hospital.setPhoneNumber("+5491123452345");
+        hospital.setPhoneNumber("+541123452345");
 
+        //Testing adding departments.
         for(ExampleDepartments ED : ExampleDepartments.values()) {
             hospital.addDepartments(new Department(ED.getLocation(),ED.getSpeciality()));
         }
-
+        //Testing adding patients.
         for (ExamplePatients EP :ExamplePatients.values()) {
             Patient patient = new Patient(EP.getName(), EP.getAge(),EP.getGender(),EP.getID(),EP.getStatus(),EP.getBeingTreatedIn());
-            hospital.addPatient(patient);
+            hospital.addID(patient.getUniqueID());
             for(var department: hospital.getDeparments()) {
                 if(EP.getBeingTreatedIn() == department.getSpeciality()){
                     department.addPatientDept(patient);
                 }
             }
         }
-
-        for (ExampleEmployees DE : ExampleEmployees.values()) {
-            if(DE.getProfession().equals("doctor")){
-                Doctor doctor = new Doctor(DE.getFullName(),DE.getAge(),DE.getGender(),DE.getID(),
-                        DE.getEntryTime(),DE.getLeavingTime(),DE.getPayRate(),DE.getSpeciality());
-                hospital.addDoctor(doctor);
-
-            } else if(DE.getProfession().equals("nurse")) {
-
+        //Testing adding employees.
+        for(ExampleEmployees DE : ExampleEmployees.values()) {
+            hospital.addID(DE.getID());
+            if(DE.getProfession().equals("receptionist")){
+                Receptionist receptionist = new Receptionist(DE.getFullName(), DE.getAge(),DE.getGender(),DE.getID(),DE.getEntryTime(),DE.getLeavingTime(), DE.getPayRate());
+                hospital.getReception().addReceptionist(receptionist);
+            } else {
+                for (Department department : hospital.getDeparments()) {
+                    if (DE.getSpeciality() == department.getSpeciality()) {
+                        department.addEmployee(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getProfession(),
+                                DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate(), DE.getSpeciality());
+                    }
+                }
             }
-
         }
+        //Stream methods
+        Map<String,String> allEmployees = hospital.allEmployees().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().getName()));
+        Map<String,String> allPatients = hospital.allPatients().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().getName()));
+        log.info("\nEmployees: ");
+        allEmployees.forEach((k,v)-> log.info(k + ": " + v));
+        log.info("\nPatients: ");
+        allPatients.forEach((k,v)-> log.info(k + ": " + v));
+
+        //Testing search
+        log.info(hospital.searchPatientById("33581170"));
+        log.info(hospital.searchPatientByName("Jason Dall"));
+
+        //Testing adding treatments.
+        log.info("\nTesting adding treatments.");
+        var treatment1 = ExampleTreatments.TREATMENT1;
+        hospital.searchDoctorById("26581590").treatPatient(hospital.searchPatientById("09184353"), treatment1.getName(),
+                treatment1.getCost(), treatment1.getTreatmentTime());
+        var treatment2 = ExampleTreatments.TREATMENT4;
+        hospital.searchDoctorById("26581590").treatPatient(hospital.searchPatientById("39341594"), treatment2.getName(),
+                treatment2.getCost(), treatment2.getTreatmentTime());
+
+        log.info("\nTreatments done by " + hospital.searchDoctorById("26581590").getName() + ": ");
+        hospital.searchDoctorById("26581590").getTreatmentsDone().forEach(t -> log.info(t.getName() + " costing " + t.getCost() + "$"));
     }
 }

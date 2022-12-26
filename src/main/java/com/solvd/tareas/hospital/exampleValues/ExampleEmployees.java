@@ -1,10 +1,12 @@
-package com.solvd.tareas.hospital.model;
+package com.solvd.tareas.hospital.exampleValues;
+
+import com.solvd.tareas.hospital.model.Speciality;
 
 import java.time.LocalTime;
 
 public enum ExampleEmployees {
 
-    DOC1( "Michael Smith",40, "male", "doctor", "33581590",
+    DOC1( "Michael Smith",40, "male", "doctor", "26581590",
             40.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0),  Speciality.SURGERY),
     DOC2("David Brown",66, "male",  "doctor", "10225739",
@@ -16,19 +18,19 @@ public enum ExampleEmployees {
     DOC4("Sarah Williams",45, "female",  "doctor", "24647160",
             50.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0), Speciality.CARDIOLOGY),
-    DOC5("Laura Williams",42, "female",  "doctor", "24647160",
+    DOC5("Laura Williams",42, "female",  "doctor", "25647180",
             50.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0), Speciality.INTENSIVE_CARE),
-    NURSE1("Matthew Thompson",46, "male",  "nurse", "24607187",
+    NURSE1("Matthew Thompson",46, "male",  "nurse", "23607187",
             30.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0), Speciality.INTENSIVE_CARE),
     NURSE2("Rachel Martin",38, "female",  "nurse", "30581569",
             28.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0), Speciality.SURGERY),
-    RECEPTIONIST1("James Anderson",30, "male",  "receptionist", "31581570",
+    RECEPTIONIST1("James Anderson",30, "male",  "receptionist", "35581570",
             22.0,  LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0),Speciality.RECEPTION),
-    RECEPTIONIST2("Jennifer Thompson",28, "female",  "receptionist", "28581580",
+    RECEPTIONIST2("Jennifer Thompson",28, "female",  "receptionist", "37581580",
             22.0, LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0),Speciality.RECEPTION),
     ;

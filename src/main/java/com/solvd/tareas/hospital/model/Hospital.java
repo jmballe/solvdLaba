@@ -3,28 +3,24 @@ package com.solvd.tareas.hospital.model;
 import com.solvd.tareas.hospital.exceptions.InvalidIdException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hospital {
     private String address;
-
     private String phoneNumber;
-    private Set<Doctor> doctors;
     private List<Department> departments;
-    private Set<Patient> patients;
+    private Reception reception;
     private Set<String> ids;
 
     public Hospital(){
-        patients = new HashSet<>();
-        doctors = new HashSet<>();
         ids = new HashSet<>();
         departments = new ArrayList<Department>();
+        reception = new Reception();
     }
 
-    public Hospital(String address, String phoneNumber, Set<Doctor> doctors, List<Department> departments, Set<Patient> patients, Set<String> ids) {
+    public Hospital(String address, String phoneNumber, List<Department> departments, Set<String> ids) {
         this.address = address;
-        this.doctors = doctors;
         this.departments = departments;
-        this.patients = patients;
         this.ids = ids;
     }
 
@@ -44,16 +40,6 @@ public class Hospital {
         this.phoneNumber = phoneNumber;
     }
 
-    public Set<Doctor> getDoctors() {
-        return doctors;
-    }
-
-    public void setDoctors(List<Doctor> doctors) throws InvalidIdException {
-        for (Doctor doctor: doctors) {
-            addDoctor(doctor);
-        }
-    }
-
     public List<Department> getDeparments() {
         return departments;
     }
@@ -62,26 +48,55 @@ public class Hospital {
         departments.add(dept);
     }
 
-    public void addDoctor(Doctor doctor) throws InvalidIdException {
-        if(checkIdAlreadyAdded(ids,doctor.getUniqueID()))
-            throw new InvalidIdException("ID already in use.");
-        ids.add(doctor.getUniqueID());
-        doctors.add(doctor);
-
+    public Reception getReception() {
+        return reception;
     }
 
-    public void addPatient(Patient patient) throws InvalidIdException {
-        if(checkIdAlreadyAdded(ids,patient.getUniqueID()))
-            throw new InvalidIdException("ID already in use.");
-        ids.add(patient.getUniqueID());
-        patients.add(patient);
+    public Set<String> getIds() {
+        return ids;
     }
 
-    public boolean checkIdAlreadyAdded(Set<String> ids, String personId){
+    public void addID(String id) throws InvalidIdException {
+        if(checkIdAlreadyAdded(ids,id)){
+            throw new InvalidIdException("ID already in use.");}
+        ids.add(id);
+    }
+
+    private boolean checkIdAlreadyAdded(Set<String> ids, String personId){
         if(ids.isEmpty()){
             return false;
         } else {
             return ids.contains(personId);
         }
     }
+
+    public Map<String, Employee> allEmployees(){
+        Map<String,Employee> allEmployees = new HashMap<>();
+        for(Department dept : departments){
+            dept.getDeptDoctors().forEach(doctor -> allEmployees.put(doctor.getUniqueID(),doctor));
+            dept.getDeptNurses().forEach(nurse-> allEmployees.put(nurse.getUniqueID(),nurse));
+        }
+        reception.getReceptionists().forEach(r->allEmployees.put(r.getUniqueID(),r));
+
+        return allEmployees;
+    }
+
+    public Map<String, Patient> allPatients(){
+        Map<String,Patient> allPatients = new HashMap<>();
+        departments.forEach(dept -> dept.getDeptPatients().forEach(patient-> allPatients.put(patient.getUniqueID(),patient)));
+        return allPatients;
+    }
+
+    public Patient searchPatientById(String id){
+        return allPatients().get(id);
+    }
+
+    public List<Patient> searchPatientByName(String name){
+       return allPatients().values().stream().filter(s-> s.getName().equals(name)).collect(Collectors.toList());
+    }
+
+    public Doctor searchDoctorById(String id){
+        return (Doctor) allEmployees().values().stream().filter(e -> e instanceof Doctor).findFirst().orElseGet(null);
+    }
+
 }
