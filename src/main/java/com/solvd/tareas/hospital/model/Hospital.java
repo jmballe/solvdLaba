@@ -1,6 +1,7 @@
 package com.solvd.tareas.hospital.model;
 
 import com.solvd.tareas.hospital.exceptions.InvalidIdException;
+import com.solvd.tareas.hospital.exceptions.InvalidPaymentException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,13 +12,13 @@ public class Hospital {
     private List<Department> departments;
     private Reception reception;
     private Set<String> ids;
-    private Double money;
+    private Double reserve;
 
     public Hospital(){
         ids = new HashSet<>();
         departments = new ArrayList<>();
         reception = new Reception();
-        money = 1000000.0;
+        reserve = 1000000.0;
     }
 
     public Hospital(String address, String phoneNumber) {
@@ -26,7 +27,7 @@ public class Hospital {
         ids = new HashSet<>();
         departments = new ArrayList<>();
         reception = new Reception();
-        money = 1000000.0;
+        reserve = 1000000.0;
     }
 
     public String getAddress() {
@@ -61,16 +62,19 @@ public class Hospital {
         return ids;
     }
 
-    public Double getMoney() {
-        return money;
+    public Double getReserve() {
+        return reserve;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setReserve(Double reserve) {
+        this.reserve = reserve;
     }
 
-    public void getPay(Double money){
-        this.money += money;
+    public void getPay(Double money) throws InvalidPaymentException {
+        if(money < 0){
+            throw new InvalidPaymentException("Payment must be positive");
+        }
+        this.reserve += money;
     }
 
     public void addID(String id) throws InvalidIdException {

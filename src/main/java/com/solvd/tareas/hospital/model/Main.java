@@ -4,10 +4,7 @@ import com.solvd.tareas.hospital.exampleValues.ExampleDepartments;
 import com.solvd.tareas.hospital.exampleValues.ExampleEmployees;
 import com.solvd.tareas.hospital.exampleValues.ExamplePatients;
 import com.solvd.tareas.hospital.exampleValues.ExampleTreatments;
-import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
-import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
-import com.solvd.tareas.hospital.exceptions.InvalidIdException;
-import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
+import com.solvd.tareas.hospital.exceptions.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,12 +45,12 @@ public class Main {
             try {
                 hospital.addID(DE.getID());
                 if (DE.getProfession().equals("receptionist")) {
-                    Receptionist receptionist = new Receptionist(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate());
+                    Receptionist receptionist = new Receptionist(DE.getName(), DE.getAge(), DE.getGender(), DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate());
                     hospital.getReception().addReceptionist(receptionist);
                 } else {
                     for (Department department : hospital.getDeparments()) {
                         if (DE.getSpeciality() == department.getSpeciality()) {
-                            department.addEmployee(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getProfession(),
+                            department.addEmployee(DE.getName(), DE.getAge(), DE.getGender(), DE.getProfession(),
                                     DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate(), DE.getSpeciality());
                         }
                     }
@@ -95,9 +92,13 @@ public class Main {
         hospital.getAllPatients().values().forEach(p -> log.info(p.getName() +" owns " + p.getOwedMoney()));
 
         //Testing payment
-        log.info("\nThe hospital has " + hospital.getMoney());
-        hospital.searchPatientById("09184353").payCharges(hospital);
-        log.info("The hospital has " + hospital.getMoney());
+        log.info("\nThe hospital has " + hospital.getReserve());
+        try {
+            hospital.searchPatientById("09184353").payCharges(hospital);
+        } catch (InvalidPaymentException e){
+            log.error(e.getMessage());
+        }
+        log.info("The hospital has " + hospital.getReserve());
 
         log.info("\nPatients owned money:");
         hospital.getAllPatients().values().forEach(p -> log.info(p.getName() +" owns " + p.getOwedMoney()));

@@ -2,6 +2,7 @@ package com.solvd.tareas.hospital.model;
 
 import com.solvd.tareas.hospital.exceptions.InvalidAgeException;
 import com.solvd.tareas.hospital.exceptions.InvalidGenderException;
+import com.solvd.tareas.hospital.exceptions.InvalidPaymentException;
 import com.solvd.tareas.hospital.interfaces.Chargeable;
 import com.solvd.tareas.hospital.interfaces.Introducible;
 import com.solvd.tareas.hospital.interfaces.Schedulable;
@@ -79,7 +80,8 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
     public void introduce() {
         log.info("Hi! i'm a patient. My name is " + getName() + ".");
     }
-    public void payCharges(Hospital hospital){
+
+    public void payCharges(Hospital hospital) throws InvalidPaymentException {
         hospital.getPay(owedMoney);
         treatments.forEach(treatment -> treatment.setPayed(true));
         log.info( getName() + " have payed " + owedMoney);

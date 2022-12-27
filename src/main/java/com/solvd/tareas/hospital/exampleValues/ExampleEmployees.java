@@ -34,7 +34,7 @@ public enum ExampleEmployees {
             22.0, LocalTime.of(8, 0),
             LocalTime.of(17, 0, 0),Speciality.RECEPTION),
     ;
-    private final String fullName;
+    private final String name;
     private final int age;
     private final String gender;
     private final String profession;
@@ -44,12 +44,12 @@ public enum ExampleEmployees {
     private final LocalTime leavingTime;
     private final Speciality speciality;
 
-    ExampleEmployees(String fullName,int age, String gender, String profession, String ID,
+    ExampleEmployees(String name, int age, String gender, String profession, String ID,
                      double payRate, LocalTime entryTime, LocalTime leavingTime,
                      Speciality speciality) {
         this.age = age;
         this.gender = gender;
-        this.fullName = fullName;
+        this.name = name;
         this.profession = profession;
         this.ID = ID;
         this.payRate = payRate;
@@ -67,8 +67,8 @@ public enum ExampleEmployees {
         return gender;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
     public String getProfession() {
