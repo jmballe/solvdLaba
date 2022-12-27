@@ -11,14 +11,13 @@ import com.solvd.tareas.hospital.exceptions.InvalidPayRateException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
 
     private static final Logger log = LogManager.getLogger(Main.class);
-    public static void main(String[] args) throws InvalidIdException, InvalidAgeException, InvalidGenderException, InvalidPayRateException {
+    public static void main(String[] args) {
 
 
         //Testing creating a new hospital
@@ -32,33 +31,43 @@ public class Main {
         }
         //Testing adding patients.
         for (ExamplePatients EP :ExamplePatients.values()) {
-            Patient patient = new Patient(EP.getName(), EP.getAge(),EP.getGender(),EP.getID(),EP.getStatus(),EP.getBeingTreatedIn());
+            try{Patient patient = new Patient(EP.getName(), EP.getAge(),EP.getGender(),EP.getID(),EP.getStatus(),EP.getBeingTreatedIn());
             hospital.addID(patient.getUniqueID());
-            for(var department: hospital.getDeparments()) {
-                if(EP.getBeingTreatedIn() == department.getSpeciality()){
-                    department.addPatientDept(patient);
+                for(var department: hospital.getDeparments()) {
+                    if(EP.getBeingTreatedIn() == department.getSpeciality()){
+                        department.addPatientDept(patient);
+                    }
                 }
+            } catch(InvalidIdException | InvalidAgeException | InvalidGenderException e){
+                log.error(e.getMessage());
             }
+
         }
         //Testing adding employees.
         for(ExampleEmployees DE : ExampleEmployees.values()) {
-            hospital.addID(DE.getID());
-            if(DE.getProfession().equals("receptionist")){
-                Receptionist receptionist = new Receptionist(DE.getFullName(), DE.getAge(),DE.getGender(),DE.getID(),DE.getEntryTime(),DE.getLeavingTime(), DE.getPayRate());
-                hospital.getReception().addReceptionist(receptionist);
-            } else {
-                for (Department department : hospital.getDeparments()) {
-                    if (DE.getSpeciality() == department.getSpeciality()) {
-                        department.addEmployee(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getProfession(),
-                                DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate(), DE.getSpeciality());
+            try {
+                hospital.addID(DE.getID());
+                if (DE.getProfession().equals("receptionist")) {
+                    Receptionist receptionist = new Receptionist(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate());
+                    hospital.getReception().addReceptionist(receptionist);
+                } else {
+                    for (Department department : hospital.getDeparments()) {
+                        if (DE.getSpeciality() == department.getSpeciality()) {
+                            department.addEmployee(DE.getFullName(), DE.getAge(), DE.getGender(), DE.getProfession(),
+                                    DE.getID(), DE.getEntryTime(), DE.getLeavingTime(), DE.getPayRate(), DE.getSpeciality());
+                        }
                     }
                 }
+            } catch (InvalidIdException | InvalidAgeException | InvalidGenderException | InvalidPayRateException e) {
+                log.error(e.getMessage());
             }
         }
-        //Stream methods
+
+
+        //Testing stream and lambda usage.
         Map<String,String> allEmployees = hospital.allEmployees().entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().getName()));
-        Map<String,String> allPatients = hospital.allPatients().entrySet().stream()
+        Map<String,String> allPatients = hospital.getAllPatients().entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().getName()));
         log.info("\nEmployees: ");
         allEmployees.forEach((k,v)-> log.info(k + ": " + v));
@@ -80,5 +89,17 @@ public class Main {
 
         log.info("\nTreatments done by " + hospital.searchDoctorById("26581590").getName() + ": ");
         hospital.searchDoctorById("26581590").getTreatmentsDone().forEach(t -> log.info(t.getName() + " costing " + t.getCost() + "$"));
+
+        //Testing owned from patients.
+        log.info("\nPatients owned money:");
+        hospital.getAllPatients().values().forEach(p -> log.info(p.getName() +" owns " + p.getOwedMoney()));
+
+        //Testing payment
+        log.info("\nThe hospital has " + hospital.getMoney());
+        hospital.searchPatientById("09184353").payCharges(hospital);
+        log.info("The hospital has " + hospital.getMoney());
+
+        log.info("\nPatients owned money:");
+        hospital.getAllPatients().values().forEach(p -> log.info(p.getName() +" owns " + p.getOwedMoney()));
     }
 }

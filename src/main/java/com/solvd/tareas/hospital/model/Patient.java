@@ -20,9 +20,9 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
     private Map<LocalDateTime, Doctor> appointments;
     private List<Treatment> treatments;
 
-    public Patient(String Name, int age, String gender, String id,
+    public Patient(String name, int age, String gender, String id,
                    PatientStatus status , Speciality beingTreatedIn) throws InvalidAgeException, InvalidGenderException {
-        super(Name, age, gender, id);
+        super(name, age, gender, id);
         this.status = status;
         this.beingTreatedIn = beingTreatedIn;
         this.owedMoney = 0;
@@ -79,9 +79,10 @@ public class Patient extends Person implements Introducible, Schedulable, Charge
     public void introduce() {
         log.info("Hi! i'm a patient. My name is " + getName() + ".");
     }
-    public void payCharges(){
+    public void payCharges(Hospital hospital){
+        hospital.getPay(owedMoney);
         treatments.forEach(treatment -> treatment.setPayed(true));
-        log.info("Thank you. You have payed" + owedMoney);
+        log.info( getName() + " have payed " + owedMoney);
         owedMoney = 0;
     }
 

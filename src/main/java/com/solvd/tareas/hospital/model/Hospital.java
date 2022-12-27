@@ -11,17 +11,22 @@ public class Hospital {
     private List<Department> departments;
     private Reception reception;
     private Set<String> ids;
+    private Double money;
 
     public Hospital(){
         ids = new HashSet<>();
-        departments = new ArrayList<Department>();
+        departments = new ArrayList<>();
         reception = new Reception();
+        money = 1000000.0;
     }
 
-    public Hospital(String address, String phoneNumber, List<Department> departments, Set<String> ids) {
+    public Hospital(String address, String phoneNumber) {
         this.address = address;
-        this.departments = departments;
-        this.ids = ids;
+        this.phoneNumber = phoneNumber;
+        ids = new HashSet<>();
+        departments = new ArrayList<>();
+        reception = new Reception();
+        money = 1000000.0;
     }
 
     public String getAddress() {
@@ -56,6 +61,18 @@ public class Hospital {
         return ids;
     }
 
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public void getPay(Double money){
+        this.money += money;
+    }
+
     public void addID(String id) throws InvalidIdException {
         if(checkIdAlreadyAdded(ids,id)){
             throw new InvalidIdException("ID already in use.");}
@@ -81,18 +98,18 @@ public class Hospital {
         return allEmployees;
     }
 
-    public Map<String, Patient> allPatients(){
+    public Map<String, Patient> getAllPatients(){
         Map<String,Patient> allPatients = new HashMap<>();
         departments.forEach(dept -> dept.getDeptPatients().forEach(patient-> allPatients.put(patient.getUniqueID(),patient)));
         return allPatients;
     }
 
     public Patient searchPatientById(String id){
-        return allPatients().get(id);
+        return getAllPatients().get(id);
     }
 
     public List<Patient> searchPatientByName(String name){
-       return allPatients().values().stream().filter(s-> s.getName().equals(name)).collect(Collectors.toList());
+       return getAllPatients().values().stream().filter(s-> s.getName().equals(name)).collect(Collectors.toList());
     }
 
     public Doctor searchDoctorById(String id){
