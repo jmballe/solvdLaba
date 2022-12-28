@@ -69,15 +69,12 @@ public class LinkedListCustom <T> {
         } else {
             System.out.println("Printing list: ");
             Node<T> node = firstNode;
-            System.out.print("[" + node.getValue() + ", ");
+            System.out.print("[" + node.getValue());
             while(node.getNext() != null){
                 node = node.getNext();
-                if(node.getNext() != null){
-                    System.out.print(node.getValue() + ", ");
-                } else {
-                    System.out.println(node.getValue() + "]");
-                }
+                System.out.print(", " + node.getValue());
             }
+            System.out.println("]");
         }
     }
 
