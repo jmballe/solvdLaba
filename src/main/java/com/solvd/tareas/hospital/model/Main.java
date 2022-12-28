@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -89,7 +90,12 @@ public class Main {
 
         //Testing owned from patients.
         log.info("\nPatients owned money:");
+
         hospital.getAllPatients().values().forEach(p -> log.info(p.getName() +" owns " + p.getOwedMoney()));
+        //Test lambda expression with stream.
+        BinaryOperator<Patient> test = (x,y) -> x.getOwedMoney() > y.getOwedMoney()?x:y;
+        Patient maxDebtor = hospital.getAllPatients().values().stream().reduce(test).orElse(null);
+        log.info("\nThe patient with the biggest debt is " + maxDebtor.getName() + " who owns " + maxDebtor.getOwedMoney());
 
         //Testing payment
         log.info("\nThe hospital has " + hospital.getReserve());
