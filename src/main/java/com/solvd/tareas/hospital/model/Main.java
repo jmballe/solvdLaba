@@ -22,12 +22,7 @@ public class Main {
         Hospital hospital = new Hospital();
         hospital.setAddress("123 Fake Street Faketown, FA 12345");
         hospital.setPhoneNumber("+541123452345");
-        try {
-            hospital.addID("21312312321323");
-            hospital.addID("21312312321323");
-        } catch (InvalidIdException e) {
-            log.error(e.getMessage());
-        }
+
         //Testing adding departments.
         for(ExampleDepartments ED : ExampleDepartments.values()) {
             hospital.addDepartments(new Department(ED.getLocation(),ED.getSpeciality()));
