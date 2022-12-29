@@ -78,17 +78,9 @@ public class Hospital {
     }
 
     public void addID(String id) throws InvalidIdException {
-        if(checkIdAlreadyAdded(ids,id)){
+        if(ids.contains(id)){
             throw new InvalidIdException("ID already in use.");}
         ids.add(id);
-    }
-
-    private boolean checkIdAlreadyAdded(Set<String> ids, String personId){
-        if(ids.isEmpty()){
-            return false;
-        } else {
-            return ids.contains(personId);
-        }
     }
 
     public Map<String, Employee> allEmployees(){
